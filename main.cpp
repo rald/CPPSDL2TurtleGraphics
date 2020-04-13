@@ -73,16 +73,18 @@ void Turtle::move(double distance) {
 			x+=cos(rad(heading))*sgn(distance);
 			y+=sin(rad(heading))*sgn(distance);
 
-			SDL_SetRenderTarget(renderer,texture);
-			
-			SDL_SetRenderDrawColor(renderer,r,g,b,a);
-			SDL_RenderDrawPoint(renderer,x,y);
-
-			SDL_SetRenderTarget(renderer,NULL);
-			SDL_Rect rect={0,0,SCREEN_WIDTH,SCREEN_HEIGHT};	
-			SDL_RenderCopy(renderer,texture,NULL,&rect);
-			SDL_RenderPresent(renderer);
-			
+			if(isPenDown) {
+				SDL_SetRenderTarget(renderer,texture);
+				
+				SDL_SetRenderDrawColor(renderer,r,g,b,a);
+				SDL_RenderDrawPoint(renderer,x,y);
+	
+				SDL_SetRenderTarget(renderer,NULL);
+				SDL_Rect rect={0,0,SCREEN_WIDTH,SCREEN_HEIGHT};	
+				SDL_RenderCopy(renderer,texture,NULL,&rect);
+				SDL_RenderPresent(renderer);
+			}
+									
 			distance-=sgn(distance);	
 			
 			Events(&event);
