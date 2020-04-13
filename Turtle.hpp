@@ -8,38 +8,39 @@
 #include <ctime>
 #include <cmath>
 
-class Turtle {
+class Turtle
+{
 
-public:
+  public:
 
-	Turtle(double x,double y,double heading);
+	Turtle(double x, double y, double heading);
 
-	static void world(int width,int height);
+	static void world(int width, int height);
 	static void start();
 	static void end();
 	static void events();
-	
+
 	void move(double distance);
 	void turn(double angle);
 	void setPenColor(Uint32 color);
 	void penUp(void);
 	void penDown(void);
 
-private:
+  private:
 
 	static bool quit;
 
-	static int width,height;
+	static int width, height;
 
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
 	static SDL_Texture *texture;
 	static SDL_Event event;
-		
-	double x,y;
+
+	double x, y;
 	double heading;
-	int r=0xFF,g=0xFF,b=0xFF,a=0xFF;
-	bool isPenDown=true;
+	int r = 0xFF, g = 0xFF, b = 0xFF, a = 0xFF;
+	bool isPenDown = true;
 };
 
 #endif
