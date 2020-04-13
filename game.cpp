@@ -8,9 +8,9 @@ int main(void)
 
 	Turtle::world(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	Turtle *turtle = new Turtle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
-
 	Turtle::start();
+
+	Turtle *turtle = new Turtle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 
 	int size = 1;
 
@@ -26,4 +26,3 @@ int main(void)
 
 	return 0;
 }
-
