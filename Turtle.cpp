@@ -28,14 +28,14 @@ static double sgn(double x) {
 
 void Turtle::world(int w,int h) {
 
-	Turtle::quit=false;
+	quit=false;
 	
-	Turtle::width=w;
-	Turtle::height=h;
+	width=w;
+	height=h;
 	
-	Turtle::window=NULL;
-	Turtle::renderer=NULL;
-	Turtle::texture=NULL;
+	window=NULL;
+	renderer=NULL;
+	texture=NULL;
 				
 	srand(time(NULL));
 
@@ -47,43 +47,43 @@ void Turtle::world(int w,int h) {
 			"Turtle Graphics",
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
-			Turtle::width,
-			Turtle::height,
+			width,
+			height,
 			SDL_WINDOW_SHOWN
 	);
 
-	if(Turtle::window==NULL) {
+	if(window==NULL) {
 		die("SDL_Error: %s\n",SDL_GetError());
 	}
 
-	Turtle::renderer=SDL_CreateRenderer(
+	renderer=SDL_CreateRenderer(
 			Turtle::window,
 			-1,
 			SDL_RENDERER_ACCELERATED |
 			SDL_RENDERER_TARGETTEXTURE);
 
-	if(Turtle::renderer==NULL) {
+	if(renderer==NULL) {
 		die("SDL_Error: %s\n",SDL_GetError());
 	}
 
-	SDL_SetRenderDrawBlendMode(Turtle::renderer,SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
 
-	Turtle::texture=SDL_CreateTexture(
-			Turtle::renderer,
+	texture=SDL_CreateTexture(
+			renderer,
 			SDL_PIXELFORMAT_RGBA8888,
 			SDL_TEXTUREACCESS_TARGET,
-			Turtle::width,
-			Turtle::height
+			width,
+			height
 	);
 
 }
 
 void Turtle::events() {
-	while(SDL_PollEvent(&Turtle::event)!=0) {
-		switch(Turtle::event.type) {
-			case SDL_QUIT: Turtle::quit=true; break;
+	while(SDL_PollEvent(&event)!=0) {
+		switch(event.type) {
+			case SDL_QUIT: quit=true; break;
 			case SDL_KEYDOWN:
-				switch(Turtle::event.key.keysym.sym) {
+				switch(event.key.keysym.sym) {
 					case SDLK_ESCAPE: quit=true; break;
 				}
 			break;
@@ -92,32 +92,32 @@ void Turtle::events() {
 }
 
 void Turtle::start() {
-	SDL_SetRenderTarget(Turtle::renderer,Turtle::texture);
+	SDL_SetRenderTarget(renderer,Turtle::texture);
 			
-	SDL_SetRenderDrawColor(Turtle::renderer,0x00,0x00,0x00,0xFF);
-	SDL_RenderClear(Turtle::renderer);
+	SDL_SetRenderDrawColor(renderer,0x00,0x00,0x00,0xFF);
+	SDL_RenderClear(renderer);
 	
-	SDL_SetRenderDrawColor(Turtle::renderer,0xFF,0xFF,0xFF,0xFF);
+	SDL_SetRenderDrawColor(renderer,0xFF,0xFF,0xFF,0xFF);
 	
-	SDL_Rect rect={0,0,Turtle::width,Turtle::height};
-	SDL_RenderDrawRect(Turtle::renderer,&rect);
+	SDL_Rect rect={0,0,width,height};
+	SDL_RenderDrawRect(renderer,&rect);
 }
 
 void Turtle::end() {
-	SDL_SetRenderTarget(Turtle::renderer,NULL);
+	SDL_SetRenderTarget(renderer,NULL);
 	
-	SDL_Rect rect={0,0,Turtle::width,Turtle::height};
+	SDL_Rect rect={0,0,width,height};
 	
-	SDL_RenderCopy(Turtle::renderer,Turtle::texture,NULL,&rect);	
-	SDL_RenderPresent(Turtle::renderer);
+	SDL_RenderCopy(renderer,texture,NULL,&rect);	
+	SDL_RenderPresent(renderer);
 
-	while(!Turtle::quit) {
+	while(!quit) {
 		events();
 	}
 
-	SDL_DestroyTexture(Turtle::texture);
-	SDL_DestroyRenderer(Turtle::renderer);
-	SDL_DestroyWindow(Turtle::window);
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 
 	SDL_Quit();
 }
@@ -136,15 +136,15 @@ void Turtle::move(double distance) {
 			y+=sin(rad(heading))*sgn(distance);
 
 			if(isPenDown) {
-				SDL_SetRenderTarget(Turtle::renderer,Turtle::texture);
+				SDL_SetRenderTarget(renderer,texture);
 				
-				SDL_SetRenderDrawColor(Turtle::renderer,r,g,b,a);
-				SDL_RenderDrawPoint(Turtle::renderer,x,y);
+				SDL_SetRenderDrawColor(renderer,r,g,b,a);
+				SDL_RenderDrawPoint(renderer,x,y);
 	
-				SDL_SetRenderTarget(Turtle::renderer,NULL);
-				SDL_Rect rect={0,0,Turtle::width,Turtle::height};	
-				SDL_RenderCopy(Turtle::renderer,Turtle::texture,NULL,&rect);
-				SDL_RenderPresent(Turtle::renderer);
+				SDL_SetRenderTarget(renderer,NULL);
+				SDL_Rect rect={0,0,width,height};	
+				SDL_RenderCopy(renderer,texture,NULL,&rect);
+				SDL_RenderPresent(renderer);
 			}
 									
 			distance-=sgn(distance);	
