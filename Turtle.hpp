@@ -1,5 +1,5 @@
-#ifndef TURTLE_HPP
-#define TURTLE_HPP
+#ifndef TURTLE_H
+#define TURTLE_H
 
 #include <SDL2/SDL.h>
 #include <cstdio>
