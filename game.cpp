@@ -1,5 +1,12 @@
 #include "Turtle.h"
 
+void square(Turtle *t,int size) {
+	for(int i=0;i<4;i++) {
+		t->move(size);
+		t->turn(90);
+	}
+}
+
 int main(void)
 {
 
@@ -10,17 +17,15 @@ int main(void)
 
 	Turtle::start();
 
-	Turtle *turtle = new Turtle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+	Turtle *t1 = new Turtle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+	Turtle *t2 = new Turtle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 
-	int size = 1;
+	t1->setPenColor(0xFF0000FF);
+	square(t1,100);
 
-	turtle->setPenColor(0xFFFFFFFF);
-	for (int i = 0; i < 100; i++)
-	{
-		turtle->move(size);
-		turtle->turn(91);
-		size += 5;
-	}
+	t2->setPenColor(0x00FF00FF);
+	t2->turn(45);
+	square(t2,100);
 
 	Turtle::end();
 
