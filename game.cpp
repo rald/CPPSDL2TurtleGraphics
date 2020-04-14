@@ -1,15 +1,18 @@
 #include "Turtle.h"
 
-void square(Turtle *t,int size) {
-	for(int i=0;i<4;i++) {
+void spiral(Turtle * t)
+{
+	int size = 1;
+	for (int i = 0; i < 50; i++)
+	{
 		t->move(size);
-		t->turn(90);
+		t->turn(91);
+		size += 5;
 	}
 }
 
 int main(void)
 {
-
 	const int SCREEN_WIDTH = 1024;
 	const int SCREEN_HEIGHT = 768;
 
@@ -18,14 +21,9 @@ int main(void)
 	Turtle::start();
 
 	Turtle *t1 = new Turtle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
-	Turtle *t2 = new Turtle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 
-	t1->setPenColor(0xFF0000FF);
-	square(t1,100);
-
-	t2->setPenColor(0x00FF00FF);
-	t2->turn(45);
-	square(t2,100);
+	t1->setPenColor(0x00FF00FF);
+	spiral(t1);
 
 	Turtle::end();
 
